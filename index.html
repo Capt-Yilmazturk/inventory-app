@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Inventory Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Login Section -->
+  <section id="loginSection">
+    <div class="login-card">
+      <h1>Store Inventory</h1>
+      <p class="login-subtitle">Sign in to manage your products</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+      </form>
+      <div id="loginError" class="error-msg" hidden></div>
+    </div>
+  </section>
+
+  <!-- App / Dashboard Section -->
+  <section id="appSection" hidden>
+    <header class="topbar">
+      <h1>Inventory Dashboard</h1>
+      <button id="logoutBtn" class="btn btn-outline">Logout</button>
+    </header>
+
+    <main class="dashboard">
+      <!-- Status Message -->
+      <div id="statusMessage" class="status-message" hidden></div>
+
+      <!-- Product Form -->
+      <div class="panel form-panel">
+        <h2 id="formTitle">Add Product</h2>
+        <form id="productForm">
+          <input type="hidden" id="productId">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Product Name</label>
+              <input type="text" id="name" placeholder="e.g. Wireless Mouse" required>
+            </div>
+            <div class="form-group">
+              <label for="sku">SKU</label>
+              <input type="text" id="sku" placeholder="e.g. WM-001" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category" required>
+                <option value="">Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Food">Food</option>
+                <option value="Home">Home</option>
+                <option value="Sports">Sports</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="price">Price ($)</label>
+              <input type="number" id="price" placeholder="0.00" step="0.01" min="0" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" placeholder="0" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="imageFile">Image</label>
+              <input type="file" id="imageFile" accept="image/*">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" rows="3" placeholder="Brief product description"></textarea>
+          </div>
+
+          <!-- Image Preview -->
+          <div id="imagePreview" class="image-preview" hidden>
+            <img id="previewImg" alt="Preview">
+            <button type="button" id="removeImage" class="btn btn-sm btn-danger">Remove</button>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="saveBtn" class="btn btn-primary">Save Product</button>
+            <button type="button" id="cancelEditBtn" class="btn btn-outline" hidden>Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Product List -->
+      <div class="panel list-panel">
+        <div class="list-header">
+          <h2>Products</h2>
+          <input type="text" id="searchInput" placeholder="Search products…" class="search-input">
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="state-msg">
+          <div class="spinner"></div>
+          <p>Loading products…</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="state-msg" hidden>
+          <p class="empty-icon">📦</p>
+          <p>No products found. Add your first product above!</p>
+        </div>
+
+        <!-- Desktop Table -->
+        <div class="table-wrapper">
+          <table id="productsTable">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards -->
+        <div id="productsCards" class="cards-container"></div>
+      </div>
+    </main>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
